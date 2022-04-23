@@ -517,7 +517,7 @@ parseMetadataEntry vt mt pm (fromEntry -> Just r) =
       --version <- parseField r 2 numeric
       --header <- parseField r 3 string
       -- TODO: parse all remaining fields
-      fail "not yet implemented"
+      notImplemented
 
     13 -> label "METADATA_SUBRANGE" $ do
       assertRecordSizeIn [3, 5]
@@ -968,7 +968,7 @@ parseMetadataEntry vt mt pm (fromEntry -> Just r) =
 
     30 -> label "METADATA_OBJC_PROPERTY" $ do
       -- TODO
-      fail "not yet implemented"
+      notImplemented
 
     31 -> label "METADATA_IMPORTED_ENTITY" $ do
       assertRecordSizeIn [6, 7]
@@ -996,7 +996,7 @@ parseMetadataEntry vt mt pm (fromEntry -> Just r) =
       -- parseField r 4 string
       -- parseField r 5 string
       -- TODO
-      fail "not yet implemented"
+      notImplemented
     33 -> label "METADATA_MACRO" $ do
       -- isDistinct <- parseField r 0 numeric
       -- parseField r 1 numeric
@@ -1004,7 +1004,7 @@ parseMetadataEntry vt mt pm (fromEntry -> Just r) =
       -- parseField r 3 string
       -- parseField r 4 string
       -- TODO
-      fail "not yet implemented"
+      notImplemented
     34 -> label "METADATA_MACRO_FILE" $ do
       -- cxt <- getContext
       -- isDistinct <- parseField r 0 numeric
@@ -1013,7 +1013,7 @@ parseMetadataEntry vt mt pm (fromEntry -> Just r) =
       -- mdForwardRefOrNull cxt mt <$> parseField r 3 numeric
       -- mdForwardRefOrNull cxt mt <$> parseField r 4 numeric
       -- TODO
-      fail "not yet implemented"
+      notImplemented
 
     35 -> label "METADATA_STRINGS" $ do
       assertRecordSizeIn [3]
