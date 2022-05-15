@@ -940,14 +940,14 @@ parseMetadataEntry vt mt pm (fromEntry -> Just r) =
 
           adj i = i + hasTag
 
-      _alignInBits <-
+      alignInBits <-
         if hasAlignment
-          then do n <- parseField r (adj 8) numeric
+          then do n <- parseField r 8 numeric
                   when ((n :: Word64) > fromIntegral (maxBound :: Word32))
                         (fail "Alignment value is too large")
-                  return (fromIntegral n :: Word32)
+                  return $ Just (fromIntegral n :: Word32)
 
-          else return 0
+          else return Nothing
 
       dilv <- DILocalVariable
         <$> (mdForwardRefOrNull ("dilvScope":ctx) mt
@@ -961,6 +961,7 @@ parseMetadataEntry vt mt pm (fromEntry -> Just r) =
               <$> parseField r (adj 5) numeric) -- dilvType
         <*> parseField r (adj 6) numeric        -- dilvArg
         <*> parseField r (adj 7) numeric        -- dilvFlags
+        <*> pure alignInBits                    -- dilvAlignment
       return $! updateMetadataTable
         (addDebugInfo isDistinct (DebugInfoLocalVariable dilv)) pm
 
